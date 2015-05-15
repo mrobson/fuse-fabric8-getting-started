@@ -8,7 +8,7 @@ Product: Fuse 6.1
 
 Breakdown                                                                                                                     
 ---------                                                                                                                     
-This is a command based example to demonstrate how to build out a Fabric Ensemble using both join and ssh.  We will also outline some tuning options available to make your Fabric more robust.
+This is a command based example to demonstrate how to build out a Fabric Ensemble using join.  We will also outline some tuning options available to make your Fabric more robust.
 
 For more information see:
 
@@ -27,7 +27,7 @@ Prerequisites
 
 The Build Out                                                                                                             
 -------------
-The root container
+Create the root container:
 
 	mkdir /opt/fuse/
 
@@ -37,37 +37,56 @@ The root container
 
 	cd jboss-fuse-6.1.0.redhat-379/etc/
 
+Edit:
+
 	vi users.properties
 
 Uncomment:
+
 	admin=admin,admin
+
+Edit:
 
 	vi org.apache.karaf.management.cfg
 
 Uncomment:
+
 	jmxRole=admin
+
+Edit:
 
 	vi org.apache.karaf.shell.cfg
 
 Uncomment:
+
 	sshRole=admin
 
 	cd /opt/fuse/jboss-fuse-6.1.0.redhat-379/bin
 
+Start the server:
+
 	./start
 
+Start a client session:
+
 	./client
+
+Create the first Fabric node:
 
 	JBossFuse:admin@root> fabric:create --wait-for-provisioning --verbose --clean --new-user admin --new-user-role admin --new-user-password admin --zookeeper-password passwd --resolver manualip --manual-ip fusefabric1.gsslab.rdu2.redhat.com
 	Waiting for container: root
 	Waiting for container root to provision.
 	Using specified zookeeper password:passwd
 
+Verify it was created:
+
 	JBossFuse:admin@root> container-list 
 	[id]                           [version] [connected] [profiles]                                         [provision status]
 	root*                          1.0       true        fabric, fabric-ensemble-0000-1, jboss-fuse-full    success
 
 Repeat steps 1-10 on 2 or 4 more server so you can create a 3 or 5 node ensemble. Once your other servers are ready, proceed to the next step.
+
+Join nodes 2-5 to the fabric:
 
 	JBossFuse:admin@root> fabric:join --zookeeper-password passwd --resolver manualip --manual-ip fusefabric2.gsslab.rdu2.redhat.com fusefabric1.gsslab.rdu2.redhat.com:2181 root2
 	You are about to change the container name. This action will restart the container.
@@ -97,6 +116,8 @@ Once you see it fully shutdown, you can start it back up again:
 	17:00:12,685 | INFO  | FelixStartLevel  | Activator                        | 4 - org.ops4j.pax.logging.pax-logging-api - 1.7.2 | Disabling Log4J API support.
 	17:00:12,685 | INFO  | FelixStartLevel  | Activator                        | 4 - org.ops4j.pax.logging.pax-logging-api - 1.7.2 | Disabling Avalon Logger API support.
 	17:00:12,685 | INFO  | FelixStartLevel  | Activator                        | 4 - org.ops4j.pax.logging.pax-logging-api - 1.7.2 | Disabling JULI Logger API support.
+
+Start the server:
 
 	./start
 
