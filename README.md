@@ -29,103 +29,103 @@ The Build Out
 -------------
 The root container
 
-mkdir /opt/fuse/
+	mkdir /opt/fuse/
 
-mv jboss-fuse-full-6.1.0.redhat-379.zip /opt/fuse/
+	mv jboss-fuse-full-6.1.0.redhat-379.zip /opt/fuse/
 
-unzip jboss-fuse-full-6.1.0.redhat-379.zip
+	unzip jboss-fuse-full-6.1.0.redhat-379.zip
 
-cd jboss-fuse-6.1.0.redhat-379/etc/
+	cd jboss-fuse-6.1.0.redhat-379/etc/
 
-vi users.properties
-
-Uncomment:
-admin=admin,admin
-
-vi org.apache.karaf.management.cfg
+	vi users.properties
 
 Uncomment:
-jmxRole=admin
+	admin=admin,admin
 
-vi org.apache.karaf.shell.cfg
+	vi org.apache.karaf.management.cfg
 
 Uncomment:
-sshRole=admin
+	jmxRole=admin
 
-cd /opt/fuse/jboss-fuse-6.1.0.redhat-379/bin
+	vi org.apache.karaf.shell.cfg
 
-./start
+Uncomment:
+	sshRole=admin
 
-./client
+	cd /opt/fuse/jboss-fuse-6.1.0.redhat-379/bin
 
-JBossFuse:admin@root> fabric:create --wait-for-provisioning --verbose --clean --new-user admin --new-user-role admin --new-user-password admin --zookeeper-password passwd --resolver manualip --manual-ip fusefabric1.gsslab.rdu2.redhat.com
-Waiting for container: root
-Waiting for container root to provision.
-Using specified zookeeper password:passwd
+	./start
 
-JBossFuse:admin@root> container-list 
-[id]                           [version] [connected] [profiles]                                         [provision status]
-root*                          1.0       true        fabric, fabric-ensemble-0000-1, jboss-fuse-full    success
+	./client
+
+	JBossFuse:admin@root> fabric:create --wait-for-provisioning --verbose --clean --new-user admin --new-user-role admin --new-user-password admin --zookeeper-password passwd --resolver manualip --manual-ip fusefabric1.gsslab.rdu2.redhat.com
+	Waiting for container: root
+	Waiting for container root to provision.
+	Using specified zookeeper password:passwd
+
+	JBossFuse:admin@root> container-list 
+	[id]                           [version] [connected] [profiles]                                         [provision status]
+	root*                          1.0       true        fabric, fabric-ensemble-0000-1, jboss-fuse-full    success
 
 Repeat steps 1-10 on 2 or 4 more server so you can create a 3 or 5 node ensemble. Once your other servers are ready, proceed to the next step.
 
-JBossFuse:admin@root> fabric:join --zookeeper-password passwd --resolver manualip --manual-ip fusefabric2.gsslab.rdu2.redhat.com fusefabric1.gsslab.rdu2.redhat.com:2181 root2
-You are about to change the container name. This action will restart the container.
-The local shell will automatically restart, but ssh connections will be terminated.
-The container will automatically join: fusefabric1.gsslab.rdu2.redhat.com:2181 the cluster after it restarts.
-Do you wish to proceed (yes/no):yes
+	JBossFuse:admin@root> fabric:join --zookeeper-password passwd --resolver manualip --manual-ip fusefabric2.gsslab.rdu2.redhat.com fusefabric1.gsslab.rdu2.redhat.com:2181 root2
+	You are about to change the container name. This action will restart the container.
+	The local shell will automatically restart, but ssh connections will be terminated.
+	The container will automatically join: fusefabric1.gsslab.rdu2.redhat.com:2181 the cluster after it restarts.
+	Do you wish to proceed (yes/no):yes
 
 In the logs, you will see it connect to your root node and then shutdown.
 
-17:00:04,179 | INFO  | Thread-49        | ZooKeeper                        | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Initiating client connection, connectString=fusefabric1.gsslab.rdu2.redhat.com:2181 sessionTimeout=60000 watcher=org.apache.curator.ConnectionState@3e679c6e
-17:00:04,924 | INFO  | redhat.com:2181) | ClientCnxn                       | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Opening socket connection to server fusefabric1.gsslab.rdu2.redhat.com/10.10.183.203:2181. Will not attempt to authenticate using SASL (unknown error)
-17:00:05,085 | INFO  | redhat.com:2181) | ClientCnxn                       | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Socket connection established to fusefabric1.gsslab.rdu2.redhat.com/10.10.183.203:2181, initiating session
-17:00:05,292 | INFO  | redhat.com:2181) | ClientCnxn                       | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Session establishment complete on server fusefabric1.gsslab.rdu2.redhat.com/10.10.183.203:2181, sessionid = 0x14d25d7c6500002, negotiated timeout = 40000
-17:00:05,297 | INFO  | d-49-EventThread | ConnectionStateManager           | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | State change: CONNECTED
+	17:00:04,179 | INFO  | Thread-49        | ZooKeeper                        | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Initiating client connection, connectString=fusefabric1.gsslab.rdu2.redhat.com:2181 sessionTimeout=60000 watcher=org.apache.curator.ConnectionState@3e679c6e
+	17:00:04,924 | INFO  | redhat.com:2181) | ClientCnxn                       | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Opening socket connection to server fusefabric1.gsslab.rdu2.redhat.com/10.10.183.203:2181. Will not attempt to authenticate using SASL (unknown error)
+	17:00:05,085 | INFO  | redhat.com:2181) | ClientCnxn                       | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Socket connection established to fusefabric1.gsslab.rdu2.redhat.com/10.10.183.203:2181, initiating session
+	17:00:05,292 | INFO  | redhat.com:2181) | ClientCnxn                       | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Session establishment complete on server fusefabric1.gsslab.rdu2.redhat.com/10.10.183.203:2181, sessionid = 0x14d25d7c6500002, negotiated timeout = 40000
+	17:00:05,297 | INFO  | d-49-EventThread | ConnectionStateManager           | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | State change: CONNECTED
 
 If you do a container-list from the root node, you can see root2 has been added but is shutdown and not yet provisioned.
 
-JBossFuse:admin@root> container-list 
-[id]                           [version] [connected] [profiles]                                         [provision status]
-root*                          1.0       true        fabric, fabric-ensemble-0000-1, jboss-fuse-full    success
-root2                          1.0       false       fabric
+	JBossFuse:admin@root> container-list 
+	[id]                           [version] [connected] [profiles]                                         [provision status]
+	root*                          1.0       true        fabric, fabric-ensemble-0000-1, jboss-fuse-full    success
+	root2                          1.0       false       fabric
 
 Once you see it fully shutdown, you can start it back up again:
 
-17:00:12,685 | INFO  | FelixStartLevel  | Activator                        | 4 - org.ops4j.pax.logging.pax-logging-api - 1.7.2 | Disabling SLF4J API support.
-17:00:12,685 | INFO  | FelixStartLevel  | Activator                        | 4 - org.ops4j.pax.logging.pax-logging-api - 1.7.2 | Disabling Jakarta Commons Logging API support.
-17:00:12,685 | INFO  | FelixStartLevel  | Activator                        | 4 - org.ops4j.pax.logging.pax-logging-api - 1.7.2 | Disabling Log4J API support.
-17:00:12,685 | INFO  | FelixStartLevel  | Activator                        | 4 - org.ops4j.pax.logging.pax-logging-api - 1.7.2 | Disabling Avalon Logger API support.
-17:00:12,685 | INFO  | FelixStartLevel  | Activator                        | 4 - org.ops4j.pax.logging.pax-logging-api - 1.7.2 | Disabling JULI Logger API support.
+	17:00:12,685 | INFO  | FelixStartLevel  | Activator                        | 4 - org.ops4j.pax.logging.pax-logging-api - 1.7.2 | Disabling SLF4J API support.
+	17:00:12,685 | INFO  | FelixStartLevel  | Activator                        | 4 - org.ops4j.pax.logging.pax-logging-api - 1.7.2 | Disabling Jakarta Commons Logging API support.
+	17:00:12,685 | INFO  | FelixStartLevel  | Activator                        | 4 - org.ops4j.pax.logging.pax-logging-api - 1.7.2 | Disabling Log4J API support.
+	17:00:12,685 | INFO  | FelixStartLevel  | Activator                        | 4 - org.ops4j.pax.logging.pax-logging-api - 1.7.2 | Disabling Avalon Logger API support.
+	17:00:12,685 | INFO  | FelixStartLevel  | Activator                        | 4 - org.ops4j.pax.logging.pax-logging-api - 1.7.2 | Disabling JULI Logger API support.
 
-./start
+	./start
 
 From the root container, you can see it transition through the stages of provisioning:
 
-JBossFuse:admin@root> container-list 
-[id]                           [version] [connected] [profiles]                                         [provision status]
-root*                          1.0       true        fabric, fabric-ensemble-0000-1, jboss-fuse-full    success
-root2                          1.0       true        fabric                                             
-JBossFuse:admin@root> container-list 
-[id]                           [version] [connected] [profiles]                                         [provision status]
-root*                          1.0       true        fabric, fabric-ensemble-0000-1, jboss-fuse-full    success
-root2                          1.0       true        fabric                                             downloading
-JBossFuse:admin@root> container-list 
-[id]                           [version] [connected] [profiles]                                         [provision status]
-root*                          1.0       true        fabric, fabric-ensemble-0000-1, jboss-fuse-full    success
-root2                          1.0       true        fabric                                             resolving
-JBossFuse:admin@root> container-list 
-[id]                           [version] [connected] [profiles]                                         [provision status]
-root*                          1.0       true        fabric, fabric-ensemble-0000-1, jboss-fuse-full    success
-root2                          1.0       true        fabric                                             installing
-JBossFuse:admin@root> container-list 
-[id]                           [version] [connected] [profiles]                                         [provision status]
-root*                          1.0       true        fabric, fabric-ensemble-0000-1, jboss-fuse-full    success
-root2                          1.0       true        fabric                                             finalizing
-JBossFuse:admin@root> container-list 
-[id]                           [version] [connected] [profiles]                                         [provision status]
-root*                          1.0       true        fabric, fabric-ensemble-0000-1, jboss-fuse-full    success
-root2                          1.0       true        fabric                                             success
+	JBossFuse:admin@root> container-list 
+	[id]                           [version] [connected] [profiles]                                         [provision status]
+	root*                          1.0       true        fabric, fabric-ensemble-0000-1, jboss-fuse-full    success
+	root2                          1.0       true        fabric                                             
+	JBossFuse:admin@root> container-list 
+	[id]                           [version] [connected] [profiles]                                         [provision status]
+	root*                          1.0       true        fabric, fabric-ensemble-0000-1, jboss-fuse-full    success
+	root2                          1.0       true        fabric                                             downloading
+	JBossFuse:admin@root> container-list 
+	[id]                           [version] [connected] [profiles]                                         [provision status]
+	root*                          1.0       true        fabric, fabric-ensemble-0000-1, jboss-fuse-full    success
+	root2                          1.0       true        fabric                                             resolving
+	JBossFuse:admin@root> container-list 
+	[id]                           [version] [connected] [profiles]                                         [provision status]
+	root*                          1.0       true        fabric, fabric-ensemble-0000-1, jboss-fuse-full    success
+	root2                          1.0       true        fabric                                             installing
+	JBossFuse:admin@root> container-list 
+	[id]                           [version] [connected] [profiles]                                         [provision status]
+	root*                          1.0       true        fabric, fabric-ensemble-0000-1, jboss-fuse-full    success
+	root2                          1.0       true        fabric                                             finalizing
+	JBossFuse:admin@root> container-list 
+	[id]                           [version] [connected] [profiles]                                         [provision status]
+	root*                          1.0       true        fabric, fabric-ensemble-0000-1, jboss-fuse-full    success
+	root2                          1.0       true        fabric                                             success
 
 You will also notice that a new log file has been created, karaf.log.  Once the server is running and has joined the Fabric, all related logging can now be found here.
 
@@ -133,39 +133,37 @@ Repeat steps 11-12 to join your remaining containers.
 
 Once that is finished, you will be left with a 1 node ensemble and 5 nodes in your fabric.
 
-JBossFuse:admin@root> container-list 
-[id]                           [version] [connected] [profiles]                                         [provision status]
-root*                          1.0       true        fabric, fabric-ensemble-0000-1, jboss-fuse-full    success
-root2                          1.0       true        fabric                                             success
-root3                          1.0       true        fabric                                             success
-root4                          1.0       true        fabric                                             success
-root5                          1.0       true        fabric                                             success
+	JBossFuse:admin@root> container-list 
+	[id]                           [version] [connected] [profiles]                                         [provision status]
+	root*                          1.0       true        fabric, fabric-ensemble-0000-1, jboss-fuse-full    success
+	root2                          1.0       true        fabric                                             success
+	root3                          1.0       true        fabric                                             success
+	root4                          1.0       true        fabric                                             success
+	root5                          1.0       true        fabric                                             success
 
 To finish, we want to add our new root containers to the ensemble.
 
-JBossFuse:admin@root> fabric:ensemble-add root2 root3 root4 root5
-This will change of the zookeeper connection string.
-Are you sure want to proceed(yes/no):yes
-Updated Zookeeper connection string: fusefabric1.gsslab.rdu2.redhat.com:2182,fusefabric2.gsslab.rdu2.redhat.com:2181,fusefabric3.gsslab.rdu2.redhat.com:2181,fusefabric4.gsslab.rdu2.redhat.com:2181,fusefabric5.gsslab.rdu2.redhat.com:2181
+	JBossFuse:admin@root> fabric:ensemble-add root2 root3 root4 root5
+	This will change of the zookeeper connection string.
+	Are you sure want to proceed(yes/no):yes
+	Updated Zookeeper connection string: fusefabric1.gsslab.rdu2.redhat.com:2182,fusefabric2.gsslab.rdu2.redhat.com:2181,fusefabric3.gsslab.rdu2.redhat.com:2181,fusefabric4.gsslab.rdu2.redhat.com:2181,fusefabric5.gsslab.rdu2.redhat.com:2181
 
 Logs:
 
-2015-05-06 11:07:58,618 | INFO  | Thread-128284    | CuratorFrameworkImpl             | mework.imps.CuratorFrameworkImpl  222 | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Starting
-2015-05-06 11:07:58,620 | INFO  | Thread-128284    | ZooKeeper                        | org.apache.zookeeper.ZooKeeper    438 | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Initiating client connection, connectString=fusefabric1.gsslab.rdu2.redhat.com:2182,fusefabric2.gsslab.rdu2.redhat.com:2181,fusefabric3.gsslab.rdu2.redhat.com:2181,fusefabric4.gsslab.rdu2.redhat.com:2181,fusefabric5.gsslab.rdu2.redhat.com:2181 sessionTimeout=30000 watcher=org.apache.curator.ConnectionState@777146b2
-2015-05-06 11:07:58,669 | INFO  | admin-1-thread-1 | FabricConfigAdminBridge          | figadmin.FabricConfigAdminBridge  173 | 67 - io.fabric8.fabric-configadmin - 1.0.0.redhat-379 | Updating configuration io.fabric8.zookeeper.server.c838e8e0-9fe0-49aa-bd19-87e7eb182c93
-2015-05-06 11:07:58,673 | INFO  | 19-87e7eb182c93) | ZooKeeperServerFactory           | bootstrap.ZooKeeperServerFactory  101 | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Creating zookeeper server with: {server.3=fusefabric3.gsslab.rdu2.redhat.com:2888:3888, component.name=io.fabric8.zookeeper.server, server.2=fusefabric2.gsslab.rdu2.redhat.com:2888:3888, server.1=fusefabric1.gsslab.rdu2.redhat.com:2888:3888, server.id=1, initLimit=10, syncLimit=5, service.factoryPid=io.fabric8.zookeeper.server, fabric.zookeeper.pid=io.fabric8.zookeeper.server-0001, clientPort=2182, clientPortAddress=0.0.0.0, service.pid=io.fabric8.zookeeper.server.c838e8e0-9fe0-49aa-bd19-87e7eb182c93, tickTime=2000, component.id=60, dataDir=data/zookeeper/0001, server.5=fusefabric5.gsslab.rdu2.redhat.com:2888:3888, server.4=fusefabric4.gsslab.rdu2.redhat.com:2888:3888}
-...
-...
-2015-05-06 11:08:08,230 | INFO  | agent-2-thread-1 | DeploymentAgent                  | io.fabric8.agent.DeploymentAgent  753 | 60 - io.fabric8.fabric-agent - 1.0.0.redhat-379 | Done.
+	2015-05-06 11:07:58,618 | INFO  | Thread-128284    | CuratorFrameworkImpl             | mework.imps.CuratorFrameworkImpl  222 | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Starting
+	2015-05-06 11:07:58,620 | INFO  | Thread-128284    | ZooKeeper                        | org.apache.zookeeper.ZooKeeper    438 | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Initiating client connection, connectString=fusefabric1.gsslab.rdu2.redhat.com:2182,fusefabric2.gsslab.rdu2.redhat.com:2181,fusefabric3.gsslab.rdu2.redhat.com:2181,fusefabric4.gsslab.rdu2.redhat.com:2181,fusefabric5.gsslab.rdu2.redhat.com:2181 sessionTimeout=30000 watcher=org.apache.curator.ConnectionState@777146b2
+	2015-05-06 11:07:58,669 | INFO  | admin-1-thread-1 | FabricConfigAdminBridge          | figadmin.FabricConfigAdminBridge  173 | 67 - io.fabric8.fabric-configadmin - 1.0.0.redhat-379 | Updating configuration io.fabric8.zookeeper.server.c838e8e0-9fe0-49aa-bd19-87e7eb182c93
+	2015-05-06 11:07:58,673 | INFO  | 19-87e7eb182c93) | ZooKeeperServerFactory           | bootstrap.ZooKeeperServerFactory  101 | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Creating zookeeper server with: {server.3=fusefabric3.gsslab.rdu2.redhat.com:2888:3888, component.name=io.fabric8.zookeeper.server, server.2=fusefabric2.gsslab.rdu2.redhat.com:2888:3888, server.1=fusefabric1.gsslab.rdu2.redhat.com:2888:3888, server.id=1, initLimit=10, syncLimit=5, service.factoryPid=io.fabric8.zookeeper.server, fabric.zookeeper.pid=io.fabric8.zookeeper.server-0001, clientPort=2182, clientPortAddress=0.0.0.0, service.pid=io.fabric8.zookeeper.server.c838e8e0-9fe0-49aa-bd19-87e7eb182c93, tickTime=2000, component.id=60, dataDir=data/zookeeper/0001, server.5=fusefabric5.gsslab.rdu2.redhat.com:2888:3888, server.4=fusefabric4.gsslab.rdu2.redhat.com:2888:3888}
+	2015-05-06 11:08:08,230 | INFO  | agent-2-thread-1 | DeploymentAgent                  | io.fabric8.agent.DeploymentAgent  753 | 60 - io.fabric8.fabric-agent - 1.0.0.redhat-379 | Done.
 
 Once it's completed, you will now see all your nodes as part of the ensemble:
 
-JBossFuse:admin@root> container-list 
-[id]                           [version] [connected] [profiles]                                         [provision status]
-root*                          1.0       true        fabric, jboss-fuse-full, fabric-ensemble-0001-1    success
-root2                          1.0       true        fabric, fabric-ensemble-0001-2                     success
-root3                          1.0       true        fabric, fabric-ensemble-0001-3                     success
-root4                          1.0       true        fabric, fabric-ensemble-0001-4                     success
-root5                          1.0       true        fabric, fabric-ensemble-0001-5                     success
+	JBossFuse:admin@root> container-list 
+	[id]                           [version] [connected] [profiles]                                         [provision status]
+	root*                          1.0       true        fabric, jboss-fuse-full, fabric-ensemble-0001-1    success
+	root2                          1.0       true        fabric, fabric-ensemble-0001-2                     success
+	root3                          1.0       true        fabric, fabric-ensemble-0001-3                     success
+	root4                          1.0       true        fabric, fabric-ensemble-0001-4                     success
+	root5                          1.0       true        fabric, fabric-ensemble-0001-5                     success
 
 Done and Done.
