@@ -97,7 +97,7 @@ Join nodes 2-5 to the fabric:
 In the logs, you will see it connect to your root node and then shutdown.
 
 	17:00:04,179 | INFO  | Thread-49        | ZooKeeper                        | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Initiating client connection, connectString=fusefabric1.lab.com:2181 sessionTimeout=60000 watcher=org.apache.curator.ConnectionState@3e679c6e
-	17:00:04,924 | INFO  | .com:2181) | ClientCnxn                       | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Opening socket connection to server fusefabric1.lab..com/10.10.183.203:2181. Will not attempt to authenticate using SASL (unknown error)
+	17:00:04,924 | INFO  | .com:2181) | ClientCnxn                       | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Opening socket connection to server fusefabric1.lab.com/10.10.183.203:2181. Will not attempt to authenticate using SASL (unknown error)
 	17:00:05,085 | INFO  | .com:2181) | ClientCnxn                       | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Socket connection established to fusefabric1.lab.com/10.10.183.203:2181, initiating session
 	17:00:05,292 | INFO  | .com:2181) | ClientCnxn                       | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Session establishment complete on server fusefabric1.lab.com/10.10.183.203:2181, sessionid = 0x14d25d7c6500002, negotiated timeout = 40000
 	17:00:05,297 | INFO  | d-49-EventThread | ConnectionStateManager           | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | State change: CONNECTED
@@ -167,12 +167,12 @@ To finish, we want to add our new root containers to the ensemble.
 	JBossFuse:admin@root> fabric:ensemble-add root2 root3 root4 root5
 	This will change of the zookeeper connection string.
 	Are you sure want to proceed(yes/no):yes
-	Updated Zookeeper connection string: fusefabric1.lab.com:2182,fusefabric2.lab..com:2181,fusefabric3.lab..com:2181,fusefabric4.lab..com:2181,fusefabric5.lab..com:2181
+	Updated Zookeeper connection string: fusefabric1.lab.com:2182,fusefabric2.lab.com:2181,fusefabric3.lab.com:2181,fusefabric4.lab.com:2181,fusefabric5.lab.com:2181
 
 Logs:
 
 	2015-05-06 11:07:58,618 | INFO  | Thread-128284    | CuratorFrameworkImpl             | mework.imps.CuratorFrameworkImpl  222 | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Starting
-	2015-05-06 11:07:58,620 | INFO  | Thread-128284    | ZooKeeper                        | org.apache.zookeeper.ZooKeeper    438 | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Initiating client connection, connectString=fusefabric1.lab.com:2182,fusefabric2.lab..com:2181,fusefabric3.lab.com:2181,fusefabric4.lab..com:2181,fusefabric5.lab.com:2181 sessionTimeout=30000 watcher=org.apache.curator.ConnectionState@777146b2
+	2015-05-06 11:07:58,620 | INFO  | Thread-128284    | ZooKeeper                        | org.apache.zookeeper.ZooKeeper    438 | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Initiating client connection, connectString=fusefabric1.lab.com:2182,fusefabric2.lab.com:2181,fusefabric3.lab.com:2181,fusefabric4.lab.com:2181,fusefabric5.lab.com:2181 sessionTimeout=30000 watcher=org.apache.curator.ConnectionState@777146b2
 	2015-05-06 11:07:58,669 | INFO  | admin-1-thread-1 | FabricConfigAdminBridge          | figadmin.FabricConfigAdminBridge  173 | 67 - io.fabric8.fabric-configadmin - 1.0.0.redhat-379 | Updating configuration io.fabric8.zookeeper.server.c838e8e0-9fe0-49aa-bd19-87e7eb182c93
 	2015-05-06 11:07:58,673 | INFO  | 19-87e7eb182c93) | ZooKeeperServerFactory           | bootstrap.ZooKeeperServerFactory  101 | 53 - io.fabric8.fabric-zookeeper - 1.0.0.redhat-379 | Creating zookeeper server with: {server.3=fusefabric3.lab.com:2888:3888, component.name=io.fabric8.zookeeper.server, server.2=fusefabric2.lab.com:2888:3888, server.1=fusefabric1.lab.com:2888:3888, server.id=1, initLimit=10, syncLimit=5, service.factoryPid=io.fabric8.zookeeper.server, fabric.zookeeper.pid=io.fabric8.zookeeper.server-0001, clientPort=2182, clientPortAddress=0.0.0.0, service.pid=io.fabric8.zookeeper.server.c838e8e0-9fe0-49aa-bd19-87e7eb182c93, tickTime=2000, component.id=60, dataDir=data/zookeeper/0001, server.5=fusefabric5.lab.com:2888:3888, server.4=fusefabric4.lab.com:2888:3888}
 	2015-05-06 11:08:08,230 | INFO  | agent-2-thread-1 | DeploymentAgent                  | io.fabric8.agent.DeploymentAgent  753 | 60 - io.fabric8.fabric-agent - 1.0.0.redhat-379 | Done.
