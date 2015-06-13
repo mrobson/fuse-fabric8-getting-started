@@ -190,3 +190,5 @@ Once it's completed, you will now see all your nodes as part of the ensemble:
 	root5                          1.0       true        fabric, fabric-ensemble-0001-5                     success
 
 Done and Done.
+
+To expand on your fabric and add some functionality, continue on to part 2 <https://github.com/mrobson/fuse-fabric8-ssh-containers>.
