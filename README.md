@@ -1,5 +1,5 @@
-﻿How to get going with fabric8 v1 in Fuse 6.1
-============================================
+﻿How to get going with fabric8 v1 in Fuse 6.1 (part1)
+====================================================
 Author: Matt Robson
 
 Technologies: Fuse, Fabric8
@@ -12,7 +12,9 @@ This is a command based example to demonstrate how to build out a Fabric Ensembl
 
 For more information see:
 
-* <https://access.redhat.com/site/documentation/JBoss_Fuse/> for more information about using JBoss Fuse
+* <https://access.redhat.com/site/documentation/JBoss_Fuse/> for more information about using Red Hat JBoss Fuse
+* <http://www.jboss.org/products/fuse/overview/> for more information about the upstream community                                              
+* <http://fabric8.io/> for more information about fabric8
 
 System Requirements
 -------------------
