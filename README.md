@@ -1,4 +1,4 @@
-﻿How to get going with fabric8 v1 in Fuse 6.1 (part1)
+﻿How to get going with fabric8 v1 in Fuse 6.2 (part1)
 ====================================================
 Author: Matt Robson
 
@@ -37,7 +37,7 @@ Create the root container:
 
 	unzip jboss-fuse-full-6.2.1.redhat-084.zip
 
-	cd jboss-fuse-6.1.0.redhat-379/etc/
+	cd jboss-fuse-6.2.1.redhat-084/etc/
 
 Edit:
 
@@ -47,7 +47,7 @@ Uncomment:
 
 	admin=admin,admin,manager,viewer,Monitor, Operator, Maintainer, Deployer, Auditor, Administrator, SuperUser
 
-	cd /opt/fuse/jboss-fuse-6.1.0.redhat-379/bin
+	cd /opt/fuse/jboss-fuse-6.2.1.redhat-084/bin
 
 Start the server:
 
