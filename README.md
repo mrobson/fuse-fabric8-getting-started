@@ -1,5 +1,5 @@
-﻿How to get going with fabric8 v1 in Fuse 6.2 (part1)
-====================================================
+﻿How to get going with fabric8 v1 in Fuse 6.2.1 (part1)
+======================================================
 Author: Matt Robson
 
 Technologies: Fuse, Fabric8
